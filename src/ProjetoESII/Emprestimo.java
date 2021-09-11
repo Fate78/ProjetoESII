@@ -72,8 +72,12 @@ public class Emprestimo {
     }
 
     public void setExtensao_emprestimo(int extensao_emprestimo) throws ExtensaoEmprestimoException {
-        if ()
-        this.extensao_emprestimo = extensao_emprestimo;
+        if (extensao_emprestimo<0 || extensao_emprestimo>100) {
+            System.out.println("Atingiu o limite de extensões");
+            throw new ExtensaoEmprestimoException("Atingiu o limite de extensões");
+        }
+        this.extensao_emprestimo++;
+        this.fimdata_emprestimo=this.fimdata_emprestimo.plusMonths(1);
     }
 
     public Utilizador getUtilizador() {
