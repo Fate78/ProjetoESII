@@ -9,12 +9,12 @@ public class EBook {
     private String formato;
     private String titulo;
     private String ISBN;
-    private String hash;
+    private String assinatura;
     private Editora editora;
     private String idioma;
     private float tamanhoFicheiro;
 
-    public EBook(int idEbook, String autor, String formato, String titulo, String ISBN, String hash, Editora editora, String idioma, float tamanhoFicheiro) throws InvalidEbookException{
+    public EBook(int idEbook, String autor, String formato, String titulo, String ISBN, String assinatura, Editora editora, String idioma, float tamanhoFicheiro) throws InvalidEbookException{
 
         //Estar atento a estes valores para ver o que faz sentido
         if (idEbook <= 0 || idEbook > 2000) {
@@ -37,8 +37,8 @@ public class EBook {
             throw new InvalidEbookException("ISBN do Ebook inválido");
         }
 
-        if (hash == null || hash.equals("")){
-            throw new InvalidEbookException("Hash do Ebook inválido");
+        if (assinatura == null || assinatura.equals("")){
+            throw new InvalidEbookException("Assinatura do Ebook inválido");
         }
 
         if (editora == null || editora.equals("")){
@@ -58,7 +58,7 @@ public class EBook {
         this.formato = formato;
         this.titulo = titulo;
         this.ISBN = ISBN;
-        this.hash = hash;
+        this.assinatura = assinatura;
         this.editora = editora;
         this.tamanhoFicheiro = tamanhoFicheiro;
         this.idioma = idioma;
@@ -86,9 +86,9 @@ public class EBook {
     public void setISBN(String ISBN) { this.ISBN = ISBN; }
 
     //Temos de arranjar uma forma de gerar uma HASH (?)
-    public String getHash() { return hash; }
+    public String getHash() { return assinatura; }
 
-    public void setHash(String hash) { this.hash = hash; }
+    public void setHash(String assinatura) { this.assinatura = assinatura; }
 
     public Editora getEditora() { return editora; }
 
