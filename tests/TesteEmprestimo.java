@@ -14,11 +14,11 @@ public class TesteEmprestimo {
     private LocalDate dataEmp = LocalDate.now();
     private LocalDate FimdataEmp = LocalDate.now().plusMonths(1);
     private Utilizador user = new Utilizador(1, "The dude", "thedude@abides.com", "Passw0rd", "ativo");
-    private EBook eBook = new EBook(1, "Christopher Paolini", "pdf", "Eragon", "978-3-16-148410-0", "Signature Eragon", "Asa", "Portugues", 255.f);
+    private EBook eBook = new EBook(1, "Christopher Paolini", "pdf", "Eragon", "978-3-16-148410-0", "Signature Eragon", editora, "Portugues", 255.f);
     private CopiaEBook copiaEBook = new CopiaEBook(1, eBook);
     //private GestorReplicas gestorReplicas = new GestorReplicas();
     private ReplicaServidor replicaServidor_portugal = new ReplicaServidor(1,  "Portugal");
-    private Utilizador user_desativado = new Utilizador(1, "The dude", "thedude@abides.com", "Passw0rd", "ativo");
+    private Utilizador user_desativado = new Utilizador(1, "The dude", "thedude@abides.com", "Passw0rd", "inativo");
 
     public TesteEmprestimo() throws InvalidEditoraException, InvalidUtilizadorException, InvalidEbookException, InvalidCopiaEBookException, InvalidReplicaException {
     }
@@ -190,7 +190,7 @@ public class TesteEmprestimo {
            emprestimo.setReplicaServidor(null);
         });
     }
-    //missing stuff
+    //TODO Extensao_de_emprestimo
     @BeforeAll
     static void set() {
     }
