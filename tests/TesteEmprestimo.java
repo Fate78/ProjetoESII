@@ -1,6 +1,6 @@
 import ProjetoESII.*;
 import ProjetoESII.Exceptions.*;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import java.time.LocalDate;
 
@@ -160,5 +160,50 @@ public class TesteEmprestimo {
     void CriarEmprestimoIDMenorMax() throws EmprestimoException {
         emprestimo = new Emprestimo(1999, LocalDate.now(), LocalDate.now().plusMonths(1), user, copiaEBook, 1);
         assertEquals(1999, emprestimo.getId_emprestimo());
+    }
+
+    @Test
+    void CriarEmprestimoReplica() throws EmprestimoException, InvalidReplicaException, InvalidUtilizadorException {
+        replicaServidor_portugal = new ReplicaServidor(1,"Portugal");
+        replicaServidor_portugal.addCopiaEBook(copiaEBook);
+        ReplicaServidor replicaServidor_franca = new ReplicaServidor(2, "Franca");
+        replicaServidor_franca.addCopiaEBook(copiaEBook);
+        ReplicaServidor replicaServidor_Espanha = new ReplicaServidor(3, "Espanha");
+        replicaServidor_Espanha.addCopiaEBook(copiaEBook);
+
+        /*gestorReplicas.addReplica(replicaServidor_portugal);
+        gestorReplicas.addReplica(replicaServidor_franca);
+        gestorReplicas.addReplica(replicaServidor_Espanha);*/
+
+        user = new Utilizador(1, "The dude", "thedude@abides.com", "Passw0rd", "ativo");
+        emprestimo = new Emprestimo(id_emprestimo, dataEmp, FimdataEmp, user, copiaEBook, 1);
+        //ReplicaServidor replica = gestorReplicas.get_Replica_Proxima_Cliente(emp);
+
+        //emprestimo.setReplicaServidor(replica);
+        assertEquals("Portugal", emprestimo.getReplicaServidor().getLocalização_ReplicaServidor());
+    }
+
+    @Test
+    void CriarEmprestimoReplicaNull() throws EmprestimoException{
+        emprestimo = new Emprestimo(id_emprestimo, dataEmp, FimdataEmp, user, copiaEBook, 1);
+        assertThrows(EmprestimoException.class, () -> {
+           emprestimo.setReplicaServidor(null);
+        });
+    }
+    //missing stuff
+    @BeforeAll
+    static void set() {
+    }
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @AfterEach
+    void tearDown1() {
+    }
+
+    @AfterAll
+    static void tearDown() {
     }
 }
