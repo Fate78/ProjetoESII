@@ -10,18 +10,18 @@ public class EBook {
     private String titulo;
     private String ISBN;
     private String hash;
-    private String editora;
+    private Editora editora;
     private String idioma;
     private float tamanhoFicheiro;
 
-    public EBook(int idEbook, String autor, String formato, String titulo, String ISBN, String hash, String editora, String idioma, float tamanhoFicheiro) throws InvalidEbookException{
+    public EBook(int idEbook, String autor, String formato, String titulo, String ISBN, String hash, Editora editora, String idioma, float tamanhoFicheiro) throws InvalidEbookException{
 
         //Estar atento a estes valores para ver o que faz sentido
-        if (idEbook <= 0 || idEbook >= 2000) {
+        if (idEbook <= 0 || idEbook > 2000) {
             throw new InvalidEbookException("Id do Ebook inválido");
         }
 
-        if (autor == null || autor.equals("")){
+        if (autor == null || autor.equals("") || autor.length() < 3 || autor.length() >= 20){
             throw new InvalidEbookException("Autor do Ebook inválido");
         }
 
@@ -49,8 +49,7 @@ public class EBook {
             throw new InvalidEbookException("Idioma do Ebook inválido");
         }
 
-        //Ver estes valores também e as exceptions
-        if (tamanhoFicheiro < 0 || tamanhoFicheiro > 155.5f){
+        if (tamanhoFicheiro < 0 || tamanhoFicheiro > 30.0f){
             throw new InvalidEbookException("Tamanho do ficheiro do Ebook inválido");
         }
 
@@ -91,9 +90,9 @@ public class EBook {
 
     public void setHash(String hash) { this.hash = hash; }
 
-    public String getEditora() { return editora; }
+    public Editora getEditora() { return editora; }
 
-    public void setEditora(String editora) { this.editora = editora; }
+    public void setEditora(Editora editora) { this.editora = editora; }
 
     public float getTamanhoFicheiro() { return tamanhoFicheiro; }
 

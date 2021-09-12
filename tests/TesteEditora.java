@@ -1,5 +1,7 @@
 import ProjetoESII.Editora;
 import ProjetoESII.Exceptions.InvalidEditoraException;
+import ProjetoESII.Exceptions.InvalidUtilizadorException;
+import ProjetoESII.Utilizador;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,6 +13,12 @@ public class TesteEditora {
     private String morada = "Rua dos Combatentes, Porto";
     private Editora editora;
 
+    //Criar uma editora null
+    @Test
+    void criarEditoraNull() {
+        assertNull(editora);
+    }
+
     //Teste Editora Funcional
     @Test
     void criarEditoraFuncional() throws InvalidEditoraException{
@@ -18,23 +26,22 @@ public class TesteEditora {
         assertNotNull(editora);
     }
 
-    //Teste aos IDS
-    //Teste Editora com ID Negativo. Não pode acontecer
-    //Não percebo se o teste é suposto falhar e mostrar o erro, ou arranjarmos forma de passar
     @Test
-    void criarEditoraIDNegativo() throws InvalidEditoraException {
-        editora = new Editora(-5, nomeEditora, morada);
-        assertNotNull(editora);
+    void criarEditoraIDNegativo() {
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(-5, nomeEditora, morada);
+        });
     }
 
     //Teste Editora com ID Zero. Não pode acontecer
     @Test
-    void criarEditoraIDZero() throws InvalidEditoraException {
-        editora = new Editora(0, nomeEditora, morada);
-        assertNotNull(editora);
+    void criarEditoraIDZero() {
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(0, nomeEditora, morada);
+        });
     }
 
-    //Teste Editora com ID Zero. Não pode acontecer (Feito de outra forma do de cima)
+    //Teste Editora com ID Zero.
     @Test
     void criarEditora0(){
         assertThrows(InvalidEditoraException.class, () -> {
@@ -44,9 +51,10 @@ public class TesteEditora {
 
     //Teste Editora c/ ID maior que 1000. Não pode acontecer
     @Test
-    void criarEditoraIDMaior1000() throws InvalidEditoraException {
-        editora = new Editora(1005, nomeEditora, morada);
-        assertNotNull(editora);
+    void criarEditoraIDMaior1000() {
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(1005, nomeEditora, morada);
+        });
     }
 
     @Test
@@ -72,23 +80,30 @@ public class TesteEditora {
     //Teste Nome
 
     @Test
-    void criarEditoraNomeNull() throws InvalidEditoraException{
-        editora = new Editora(100, null, morada);
+    void criarEditoraNomeNull(){
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(idEditora, null, morada);
+        });
     }
 
     @Test
-    void criarEditoraNomeVazio() throws InvalidEditoraException {
-        editora = new Editora(100, "", morada);
+    void criarEditoraNomeVazio() {
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(idEditora, "", morada);
+        });
     }
 
     @Test
-    void criarEditoraNomeLengthMaior() throws InvalidEditoraException {
-        editora = new Editora(100, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE", morada);
+    void criarEditoraNomeLengthMaior() {
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(idEditora, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE", morada);
+        });
     }
 
     @Test
     void criarEditoraNomeCorreto() throws InvalidEditoraException {
-        editora = new Editora(100, "TESTE TESTE", morada);
+        editora = new Editora(idEditora, "TESTE TESTE", morada);
+        assertEquals("TESTE TESTE", editora.getNomeEditora());
     }
 
     //Fim testes Nome
@@ -96,22 +111,29 @@ public class TesteEditora {
 
     @Test
     void criarEditoraMoradaCorreta() throws InvalidEditoraException {
-        editora = new Editora(100, nomeEditora, "Rua Professor Elisio");
+        editora = new Editora(idEditora, nomeEditora, "Rua Professor Elisio");
+        assertEquals("Rua Professor Elisio", editora.getMorada());
     }
 
     @Test
-    void criarEditoraMoradaNull() throws InvalidEditoraException {
-        editora = new Editora(100, nomeEditora, null);
+    void criarEditoraMoradaNull(){
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(idEditora, nomeEditora, null);
+        });
     }
 
     @Test
-    void criarEditoraMoradaVazia() throws InvalidEditoraException {
-        editora = new Editora(100, nomeEditora, "");
+    void criarEditoraMoradaVazia() {
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(idEditora, nomeEditora, "");
+        });
     }
 
     @Test
-    void criarEditoraMoradaLengthMaior() throws InvalidEditoraException {
-        editora = new Editora(100, nomeEditora, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE");
+    void criarEditoraMoradaLengthMaior() {
+        assertThrows(InvalidEditoraException.class, () -> {
+            editora = new Editora(idEditora, nomeEditora, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE");
+        });
     }
 
 }

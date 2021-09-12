@@ -1,3 +1,4 @@
+import ProjetoESII.Exceptions.InvalidEbookException;
 import ProjetoESII.Exceptions.InvalidUtilizadorException;
 import ProjetoESII.Utilizador;
 import org.junit.jupiter.api.*;
@@ -26,15 +27,17 @@ public class TesteUtilizador {
     }
 
     @Test
-    void criarUtilizadorIdNegativo() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(-5, nomeUtilizador, emailUtilizador, passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorIdNegativo() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(-5, nomeUtilizador, emailUtilizador, passwordUtilizador, estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorIdMaior1000() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(1005, nomeUtilizador, emailUtilizador, passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorIdMaior1000() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(1005, nomeUtilizador, emailUtilizador, passwordUtilizador, estadoUtilizador);
+        });
     }
 
     @Test
@@ -60,21 +63,24 @@ public class TesteUtilizador {
     }
 
     @Test
-    void criarUtilizadorNomeNull() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, null, emailUtilizador, passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorNomeNull() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, null, emailUtilizador, passwordUtilizador, estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorNomeVazio() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, "", emailUtilizador, passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorNomeVazio() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, "", emailUtilizador, passwordUtilizador, estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorNomeMaior20() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, "TESTE TESTE TESTE TESTE TESTE", emailUtilizador, passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorNomeMaior20(){
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, "TESTE TESTE TESTE TESTE TESTE", emailUtilizador, passwordUtilizador, estadoUtilizador);
+        });
     }
 
     //Fim testes nomeUtilizador
@@ -88,21 +94,24 @@ public class TesteUtilizador {
     }
 
     @Test
-    void criarUtilizadorEmailNull() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, nomeUtilizador, null, passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorEmailNull(){
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, null, passwordUtilizador, estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorEmailVazio() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, nomeUtilizador, "", passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorEmailVazio() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, "", passwordUtilizador, estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorEmailMaior30() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, nomeUtilizador, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE", passwordUtilizador, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorEmailMaior30() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE", passwordUtilizador, estadoUtilizador);
+        });
     }
 
     //Fim testes emailUtilizador
@@ -115,27 +124,31 @@ public class TesteUtilizador {
     }
 
     @Test
-    void criarUtilizadorPasswordNull() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, null, estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorPasswordNull() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, null, estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorPasswordVazia() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, "", estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorPasswordVazia(){
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, "", estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorPasswordMenor6() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, "teste", estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorPasswordMenor6() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, "teste", estadoUtilizador);
+        });
     }
 
     @Test
-    void criarUtilizadorPasswordMaior35() throws InvalidUtilizadorException {
-        utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE", estadoUtilizador);
-        assertNotNull(utilizador);
+    void criarUtilizadorPasswordMaior35() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, "TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE TESTE", estadoUtilizador);
+        });
     }
 
     //Fim teste passwordUtilizador
@@ -149,8 +162,15 @@ public class TesteUtilizador {
     }
 
     @Test
-    void criarUtilizadorEstadoIna~d6tfyrygfhtivo() throws InvalidUtilizadorException {
+    void criarUtilizadorEstadoInativo() throws InvalidUtilizadorException {
         utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, passwordUtilizador, "inativo");
         assertEquals("inativo", utilizador.getEstadoUtilizador());
+    }
+
+    @Test
+    void criarUtilizadorEstadoErro() {
+        assertThrows(InvalidUtilizadorException.class, () -> {
+            utilizador = new Utilizador(idUtilizador, nomeUtilizador, emailUtilizador, passwordUtilizador, "TESTE");
+        });
     }
 }
