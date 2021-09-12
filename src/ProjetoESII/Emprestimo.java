@@ -8,6 +8,7 @@ import java.time.LocalDate;
 public class Emprestimo {
 
     private int id_emprestimo=0;
+    private LocalDate data_emprestimo;
     private LocalDate fimdata_emprestimo;
     private int extensao_emprestimo=0;
     private Utilizador utilizador;
@@ -15,7 +16,7 @@ public class Emprestimo {
     private CopiaEBook copiaEbook;
     private int assinatura=0;
 
-    public Emprestimo(int id_emprestimo, LocalDate data_emprestimo, Utilizador utilizador) throws EmprestimoException {
+    public Emprestimo(int id_emprestimo, LocalDate data_emprestimo, LocalDate fimdata_emprestimo, Utilizador utilizador , CopiaEBook copiaEBook, int assinatura) throws EmprestimoException {
         if (id_emprestimo<=0 || id_emprestimo >=2000)
             throw new EmprestimoException("Id Emprestimo Invalido");
 
@@ -54,8 +55,6 @@ public class Emprestimo {
     public void setData_emprestimo(LocalDate data_emprestimo) {
         this.data_emprestimo = data_emprestimo;
     }
-
-    private LocalDate data_emprestimo;
 
     public LocalDate getFimdata_emprestimo() {
         return fimdata_emprestimo;
