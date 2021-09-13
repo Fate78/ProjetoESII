@@ -17,7 +17,7 @@ public class TesteCopiaEBook {
     private String autor = "Christopher Paolini";
     private String titulo = "Eragon";
     private String formato = "pdf";
-    private float fileSize = 255.f;
+    private float fileSize = 15.0f;
     private String assinatura = "Signature Eragon";
     private String idioma = "portugues";
     private EBook eBook = new EBook(1, autor, formato, titulo, ISBN, assinatura, editora, idioma, fileSize);
@@ -39,6 +39,13 @@ public class TesteCopiaEBook {
     }
 
     @Test
+    void CriarCopiaEBookComEBookNull() {
+        assertThrows(InvalidCopiaEBookException.class, () -> {
+            copiaEBook = new CopiaEBook(idCopia, null);
+        });
+    }
+
+    @Test
     void CriarCopiaEBookIdValido() throws InvalidCopiaEBookException {
         copiaEBook = new CopiaEBook(1, eBook);
         assertEquals(1,copiaEBook.getId_copia());
@@ -54,7 +61,7 @@ public class TesteCopiaEBook {
     @Test
     void CriarCopiaEBookIdIgualMax() {
         assertThrows(InvalidCopiaEBookException.class, () -> {
-            copiaEBook = new CopiaEBook(2001, eBook);
+            copiaEBook = new CopiaEBook(2000, eBook);
         });
     }
 

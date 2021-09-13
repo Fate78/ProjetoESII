@@ -41,14 +41,6 @@ public class TesteEditora {
         });
     }
 
-    //Teste Editora com ID Zero.
-    @Test
-    void criarEditora0(){
-        assertThrows(InvalidEditoraException.class, () -> {
-            editora = new Editora(0, nomeEditora, morada);
-        });
-    }
-
     //Teste Editora c/ ID maior que 1000. Não pode acontecer
     @Test
     void criarEditoraIDMaior1000() {

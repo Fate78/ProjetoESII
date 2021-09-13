@@ -7,10 +7,13 @@ public class CopiaEBook {
     private EBook eBook;
 
     public CopiaEBook(int id_copia, EBook eBook) throws InvalidCopiaEBookException{
+
         if (id_copia<=0 || id_copia>=2000)
             throw new InvalidCopiaEBookException("ID Copia Ebook Inválido");
+
         if (eBook==null)
-            throw new InvalidCopiaEBookException("Copia Ebook Inválida");
+            throw new InvalidCopiaEBookException("Copia Ebook Nula");
+
         this.id_copia=id_copia;
         this.eBook=eBook;
     }

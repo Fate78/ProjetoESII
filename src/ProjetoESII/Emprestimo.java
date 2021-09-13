@@ -1,7 +1,7 @@
 package ProjetoESII;
 
-import ProjetoESII.Exceptions.EmprestimoException;
-import ProjetoESII.Exceptions.ExtensaoEmprestimoException;
+import ProjetoESII.Exceptions.InvalidEmprestimoException;
+import ProjetoESII.Exceptions.InvalidExtensaoEmprestimoException;
 
 import java.time.LocalDate;
 
@@ -9,35 +9,51 @@ public class Emprestimo {
 
     private int id_emprestimo=0;
     private LocalDate data_emprestimo;
-    private LocalDate fimdata_emprestimo;
-    private int extensao_emprestimo=0;
+    private LocalDate fim_emprestimo;
+    private int prolongacao_emprestimo=0;
     private Utilizador utilizador;
     private ProjetoESII.ReplicaServidor replicaServidor;
-    private CopiaEBook copiaEbook;
+    private CopiaEBook copiaEBook;
     private int assinatura=0;
 
-    public Emprestimo(int id_emprestimo, LocalDate data_emprestimo, LocalDate fimdata_emprestimo, Utilizador utilizador , CopiaEBook copiaEBook, int assinatura) throws EmprestimoException {
+    public Emprestimo(int id_emprestimo, LocalDate data_emprestimo, LocalDate fim_emprestimo, Utilizador utilizador , CopiaEBook copiaEBook, int assinatura, int prolongacao_emprestimo) throws InvalidEmprestimoException {
         if (id_emprestimo<=0 || id_emprestimo >=2000)
-            throw new EmprestimoException("Id Emprestimo Invalido");
+            throw new InvalidEmprestimoException("Id Emprestimo Invalido");
 
-        if (utilizador.getEstadoUtilizador().equals(false) || utilizador==null)
-            throw new EmprestimoException("Utilizador desativado");
+        if (utilizador.getEstadoUtilizador().equals("inativo") || utilizador==null)
+            throw new InvalidEmprestimoException("Utilizador desativado");
 
-        if (data_emprestimo.isEqual(fimdata_emprestimo))
-            throw new EmprestimoException("Data de inicio do emprestimo igual a data de fim");
+        if (data_emprestimo.isEqual(fim_emprestimo))
+            throw new InvalidEmprestimoException("Data de inicio do emprestimo igual a data de fim");
 
-        if (data_emprestimo.isBefore(LocalDate.now()) || fimdata_emprestimo.isBefore(data_emprestimo))
-            throw new EmprestimoException("Data inválida!!");
+        if (data_emprestimo.isBefore(LocalDate.now()) || fim_emprestimo.isBefore(data_emprestimo))
+            throw new InvalidEmprestimoException("Data inválida!!");
 
-        if (copiaEbook == null)
-            throw new EmprestimoException("EBook null");
+        if (copiaEBook == null)
+            throw new InvalidEmprestimoException("EBook null");
+
+        if (assinatura != 1)
+            throw new InvalidEmprestimoException("Assinatura inválida");
+
+        if(prolongacao_emprestimo < 0 || prolongacao_emprestimo > 2)
+            throw new InvalidEmprestimoException("Prolongação do empréstimo inválida");
 
         this.id_emprestimo=id_emprestimo;
         this.data_emprestimo=data_emprestimo;
-        this.fimdata_emprestimo=fimdata_emprestimo;
+        this.fim_emprestimo =fim_emprestimo;
         this.utilizador=utilizador;
-        this.copiaEbook=copiaEbook;
+        this.copiaEBook=copiaEBook;
         this.assinatura=assinatura;
+        this.prolongacao_emprestimo=prolongacao_emprestimo;
+    }
+
+    //Prolongar o empréstimo
+    public void prolongarEmprestimo() throws InvalidExtensaoEmprestimoException {
+        if(prolongacao_emprestimo <= 0 || prolongacao_emprestimo > 2){
+            throw new InvalidExtensaoEmprestimoException("Prolongação de empréstimo inválida");
+        }
+        this.prolongacao_emprestimo++;
+        this.fim_emprestimo = this.fim_emprestimo.plusMonths(1);
     }
 
     public int getId_emprestimo() {
@@ -56,36 +72,35 @@ public class Emprestimo {
         this.data_emprestimo = data_emprestimo;
     }
 
-    public LocalDate getFimdata_emprestimo() {
-        return fimdata_emprestimo;
+    public LocalDate getFim_emprestimo() {
+        return fim_emprestimo;
     }
 
-    public void setFimdata_emprestimo(LocalDate fimdata_emprestimo) throws EmprestimoException{
-        if (data_emprestimo.isEqual(fimdata_emprestimo) || fimdata_emprestimo.isBefore(data_emprestimo))
-            throw new EmprestimoException("Data de inicio do emprestimo igual a data de fim");
-        this.fimdata_emprestimo = fimdata_emprestimo;
+    public void setFim_emprestimo(LocalDate fim_emprestimo) throws InvalidEmprestimoException {
+        if (data_emprestimo.isEqual(fim_emprestimo) || fim_emprestimo.isBefore(data_emprestimo))
+            throw new InvalidEmprestimoException("Data de inicio do emprestimo igual a data de fim");
+        this.fim_emprestimo = fim_emprestimo;
     }
 
-    public int getExtensao_emprestimo() {
-        return extensao_emprestimo;
+    public int getProlongacao_emprestimo() {
+        return prolongacao_emprestimo;
     }
 
-    public void setExtensao_emprestimo(int extensao_emprestimo) throws ExtensaoEmprestimoException {
-        if (extensao_emprestimo<0 || extensao_emprestimo>100) {
-            System.out.println("Atingiu o limite de extensões");
-            throw new ExtensaoEmprestimoException("Atingiu o limite de extensões");
+    public void setProlongacao_emprestimo(int prolongacao_emprestimo) throws InvalidExtensaoEmprestimoException {
+        if (prolongacao_emprestimo < 0 || prolongacao_emprestimo > 2) {
+            throw new InvalidExtensaoEmprestimoException("Atingiu o limite de prolongações");
         }
-        this.extensao_emprestimo++;
-        this.fimdata_emprestimo=this.fimdata_emprestimo.plusMonths(1);
+        this.prolongacao_emprestimo++;
+        this.fim_emprestimo =this.fim_emprestimo.plusMonths(1);
     }
 
     public Utilizador getUtilizador() {
         return utilizador;
     }
 
-    public void setUtilizador(Utilizador utilizador) throws EmprestimoException{
-        if (utilizador.getEstadoUtilizador().equals(false))
-            throw new EmprestimoException("Utilizador desativado");
+    public void setUtilizador(Utilizador utilizador) throws InvalidEmprestimoException {
+        if (utilizador.getEstadoUtilizador().equals("inativo"))
+            throw new InvalidEmprestimoException("Utilizador desativado");
         this.utilizador = utilizador;
     }
 
@@ -93,20 +108,20 @@ public class Emprestimo {
         return replicaServidor;
     }
 
-    public void setReplicaServidor(ReplicaServidor replicaServidor) throws EmprestimoException{
+    public void setReplicaServidor(ReplicaServidor replicaServidor) throws InvalidEmprestimoException {
         if (replicaServidor==null)
-            throw new EmprestimoException("Replica Servidor Null");
+            throw new InvalidEmprestimoException("Replica Servidor Null");
         this.replicaServidor = replicaServidor;
     }
 
     public CopiaEBook getCopiaEbook() {
-        return copiaEbook;
+        return copiaEBook;
     }
 
-    public void setCopiaEbook(CopiaEBook copiaEbook) throws EmprestimoException{
-        if (copiaEbook==null)
-            throw new EmprestimoException("Copia Ebook null");
-        this.copiaEbook = copiaEbook;
+    public void setCopiaEbook(CopiaEBook copiaEBook) throws InvalidEmprestimoException {
+        if (copiaEBook==null)
+            throw new InvalidEmprestimoException("Copia Ebook null");
+        this.copiaEBook = copiaEBook;
     }
 
     public int getAssinatura() {
@@ -116,4 +131,5 @@ public class Emprestimo {
     public void setAssinatura(int assinatura) {
         this.assinatura = assinatura;
     }
+
 }

@@ -16,7 +16,6 @@ public class EBook {
 
     public EBook(int idEbook, String autor, String formato, String titulo, String ISBN, String assinatura, Editora editora, String idioma, float tamanhoFicheiro) throws InvalidEbookException{
 
-        //Estar atento a estes valores para ver o que faz sentido
         if (idEbook <= 0 || idEbook > 2000) {
             throw new InvalidEbookException("Id do Ebook inválido");
         }
@@ -85,7 +84,6 @@ public class EBook {
 
     public void setISBN(String ISBN) { this.ISBN = ISBN; }
 
-    //Temos de arranjar uma forma de gerar uma HASH (?)
     public String getHash() { return assinatura; }
 
     public void setHash(String assinatura) { this.assinatura = assinatura; }

@@ -31,6 +31,13 @@ public class TesteEbook {
         assertNotNull(ebook);
     }
 
+    @Test
+    void criarEbookFuncional2() throws InvalidEbookException {
+        ebook = new EBook(1, "Christopher Paolini", "pdf", "Eragon", "978-3-16-148410-0", "Signature Eragon", editora, "Portugues", 15.0f);
+        assertNotNull(ebook);
+    }
+
+
     //Teste ID Ebook
     @Test
     void criarEbookIDValido() throws InvalidEbookException {

@@ -9,7 +9,7 @@ public class Funcionario {
     private String passwordFuncionario;
     private String nomeFuncionario;
 
-    public Funcionario(Integer idFuncionario, String emailFuncionario, String passwordFuncionario, String nomeFuncionario) throws InvalidFuncionarioException{
+    public Funcionario(Integer idFuncionario, String nomeFuncionario, String emailFuncionario, String passwordFuncionario) throws InvalidFuncionarioException{
 
         if (idFuncionario <= 0 || idFuncionario >= 1000){
             throw new InvalidFuncionarioException("Id de funcionário inválido");
@@ -23,7 +23,7 @@ public class Funcionario {
             throw new InvalidFuncionarioException("Password de funcionário inválido");
         }
 
-        if(nomeFuncionario == null || nomeFuncionario.length() < 3 || nomeFuncionario.equals("")){
+        if(nomeFuncionario == null || nomeFuncionario.length() < 3 || nomeFuncionario.equals("") || nomeFuncionario.length() >= 20){
             throw new InvalidFuncionarioException("Nome de funcionário inválido");
         }
 
