@@ -11,7 +11,7 @@ public class ReplicaServidor {
     private ArrayList<CopiaEBook> copiaEBookArrayList = new ArrayList<>();
 
     public ReplicaServidor(int id_replicaServidor, String localização_ReplicaServidor) throws InvalidReplicaException{
-        if (id_replicaServidor<=0 || id_replicaServidor>=10000) //
+        if (id_replicaServidor<=0 || id_replicaServidor>=2000)
             throw new InvalidReplicaException("Servidor Inválido");
         if (localização_ReplicaServidor==null || localização_ReplicaServidor.equals(""))
             throw new InvalidReplicaException("Servidor Inválido");
