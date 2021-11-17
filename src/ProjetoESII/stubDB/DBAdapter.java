@@ -1,147 +1,153 @@
 package ProjetoESII.stubDB;
 
 import ProjetoESII.*;
+import ProjetoESII.Exceptions.InvalidEmprestimoException;
+import ProjetoESII.Exceptions.InvalidExtensaoEmprestimoException;
+import ProjetoESII.Exceptions.InvalidReplicaException;
 
-public class DBAdapter {
-    private String conexaoDB = "";
+import java.time.LocalDate;
 
+public class DBAdapter implements InterfaceDB {
+    private String connection = "";
+
+
+    //User
     @Override
-    public int saveUser(Utilizador u) {
+    public int addUser(Utilizador u) {
         return -1;
     }
 
     @Override
-    public int removeUser(int id_user) {
+    public int removeUser(Utilizador u) {
         return 0;
     }
 
     @Override
-    public Utilizador getUser(int id_user) {
-        return null;
-    }
-
-    @Override
-    public int updateUser(int id_user, String pwd, String telefone) {
+    public int updateUser(Utilizador u, String nome, String email, String password, String estado) {
         return 0;
     }
 
     @Override
-    public Utilizador Login(String email, String pwd) {
+    public Utilizador getUser(int id) {
         return null;
     }
 
     @Override
-    public JSONObject listaOfUsers() {
+    public Utilizador loginUser(String email, String password) {
         return null;
     }
 
+
+    //EBook
     @Override
-    public int saveEBook(EBook eBook) {
+    public int addEbook(EBook ebook) { return -1; }
+
+    @Override
+    public int removeEbook(EBook ebook) { return 0; }
+
+    @Override
+    public int updateEbook(EBook ebook, String autor, String formato, String titulo, String ISBN, String assinatura, Editora editora, String idioma, Float tamanhoFicheiro) { return 0; }
+
+    @Override
+    public EBook getEbook(int idEbook) { return null; }
+
+    // Emprestimo
+    @Override
+    public int addEmprestimo(Emprestimo emp) {
+        return -1;
+    }
+
+    @Override
+    public int removeEmprestimo(Emprestimo emp) {
         return 0;
     }
 
     @Override
-    public EBook getEBook(int idEBook) {
-        return null;
-    }
-
-    @Override
-    public JSONObject ListarEBooks() {
-        return null;
-    }
-
-    @Override
-    public int removeEBook(int idEBook) {
+    public int updateEmprestimo(Emprestimo emp, LocalDate data_ini, LocalDate data_fim, int prolongacao, Utilizador user, ReplicaServidor replicaServidor, CopiaEBook copiaEBook, int assinatura)  throws InvalidEmprestimoException, InvalidExtensaoEmprestimoException{
         return 0;
     }
 
     @Override
-    public int saveEmprestimo(Emprestimo emp) {
+    public Emprestimo getEmprestimo(int idEmp) {
+        return null;
+    }
+
+    @Override
+    public EBook getEbookFromEmprestimo(int idEmp) {
+        return null;
+    }
+
+    @Override
+    public Utilizador getUtilizadorFromEmprestimo(int idEmp) {
+        return null;
+    }
+
+    @Override
+    public ReplicaServidor getReplicaFromEmprestimo(int idEmp) {
+        return null;
+    }
+
+
+    // Editora
+    @Override
+    public int addEditora(Editora edit) {
+        return -1;
+    }
+
+    @Override
+    public int removeEditora(Editora edit) {
         return 0;
     }
 
     @Override
-    public Emprestimo getEmprestimo(int id_emp) {
-        return null;
-    }
-
-    @Override
-    public EBook getEBookFromEmprestimo(int id_emp) {
-        return null;
-    }
-
-    @Override
-    public Utilizador getUtilizadorFromEmprestimo(int id_emp) {
-        return null;
-    }
-
-    @Override
-    public ReplicaServidor getReplicaFromEmprestimo(int id_emp) {
-        return null;
-    }
-
-    @Override
-    public int getAssinaturaTR(int id_emp) {
+    public int updateEditora(Editora edit, String nomeEditora, String morada) {
         return 0;
     }
 
     @Override
-    public int removeEmprestimo(int id_emp) {
+    public Editora getEditora(int idEdit) {
+        return null;
+    }
+
+    //Funcionario
+    @Override
+    public int addFuncionario(Funcionario func) {
+        return -1;
+    }
+
+    @Override
+    public int removeFuncionario(Funcionario func) {
         return 0;
     }
 
     @Override
-    public JSONObject ListarEmprestimoByUser(int id_user) {
-        return null;
-    }
-
-    @Override
-    public int saveFuncionario(Funcionario f) {
+    public int updateFuncionario(Funcionario func, String emailFunc, String passFunc, String nomeFunc) {
         return 0;
     }
 
     @Override
-    public int removeFuncionario(int id_func) {
+    public Funcionario getFuncionario(int idFunc) {
+        return null;
+    }
+
+    //Replica Servidor
+    @Override
+    public int addReplica(ReplicaServidor replica) {
+        return -1;
+    }
+
+    @Override
+    public int removeReplica(ReplicaServidor replica) {
         return 0;
     }
 
     @Override
-    public Funcionario getFuncionario(int id_func) {
-        return null;
-    }
-
-    @Override
-    public Funcionario LoginFuncionario(String email, String pwd) {
-        return null;
-    }
-
-    @Override
-    public int saveReplica(ReplicaServidor rp) {
+    public int updateReplica(ReplicaServidor replica, String localizacao) throws InvalidReplicaException {
         return 0;
     }
 
     @Override
-    public int removeReplica(int id_replica) {
-        return 0;
-    }
-
-    @Override
-    public ReplicaServidor getReplica(int id_replica) {
-        return null;
-    }
-
-    @Override
-    public JSONObject getCopiaFromReplicas(int id_replica) {
-        return null;
-    }
-
-    @Override
-    public int addEditora(Editora editora) {
-        return 1;
-    }
-
-    @Override
-    public Editora getEditorabyId(int idEditora) {
+    public ReplicaServidor getReplica(int idReplica) {
         return null;
     }
 }

@@ -172,6 +172,51 @@ public class TesteEmprestimo {
         });
     }
 
+    @Test
+    void ProlongarEmprestimo1x() throws InvalidEmprestimoException {
+        emprestimo = new Emprestimo(id_emprestimo, dataEmprestimo, fimEmprestimo, user, copiaEBook, 1, prolongacao_emprestimo);
+        LocalDate targetDate = emprestimo.getFim_emprestimo().plusMonths(1);
+
+        try {
+            emprestimo.prolongarEmprestimo();
+        } catch (InvalidExtensaoEmprestimoException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(1, emprestimo.getProlongacao_emprestimo());
+        assertEquals(targetDate, emprestimo.getFim_emprestimo());
+    }
+
+    @Test
+    void ProlongarEmprestimo2x() throws InvalidEmprestimoException {
+        emprestimo = new Emprestimo(id_emprestimo, dataEmprestimo, fimEmprestimo, user, copiaEBook, 1, prolongacao_emprestimo);
+        LocalDate targetDate = emprestimo.getFim_emprestimo().plusMonths(2);
+
+        try {
+            emprestimo.prolongarEmprestimo();
+            emprestimo.prolongarEmprestimo();
+        } catch (InvalidExtensaoEmprestimoException e) {
+            e.printStackTrace();
+        }
+
+        assertEquals(2, emprestimo.getProlongacao_emprestimo());
+        assertEquals(targetDate, emprestimo.getFim_emprestimo());
+    }
+
+    @Test
+    void ProlongarEmprestimo3x() throws InvalidEmprestimoException {
+        emprestimo = new Emprestimo(id_emprestimo, dataEmprestimo, fimEmprestimo, user, copiaEBook, 1, prolongacao_emprestimo);
+        try {
+            emprestimo.prolongarEmprestimo();
+            emprestimo.prolongarEmprestimo();
+        } catch (InvalidExtensaoEmprestimoException e) {
+            e.printStackTrace();
+        }
+
+        assertThrows(InvalidExtensaoEmprestimoException.class, () -> {
+            emprestimo.prolongarEmprestimo();
+        });
+    }
 
     @BeforeAll
     static void set() {

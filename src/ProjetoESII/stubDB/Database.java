@@ -1,124 +1,131 @@
 package ProjetoESII.stubDB;
+
 import ProjetoESII.*;
-import ProjetoESII.Exceptions.InvalidUtilizadorException;
-import org.json.JSONObject;
+import ProjetoESII.Exceptions.InvalidEmprestimoException;
+import ProjetoESII.Exceptions.InvalidExtensaoEmprestimoException;
+import ProjetoESII.Exceptions.InvalidReplicaException;
+
+import java.time.LocalDate;
 
 public class Database {
+
     private InterfaceDB interfaceDB = new DBAdapterStub();
 
-    //-----Utilizador
     public synchronized int addUser(Utilizador u) {
-        return interfaceDB.saveUser(u);
+        return interfaceDB.addUser(u);
     }
 
-    public synchronized int removeUser(int id_user) {
-        return interfaceDB.removeUser(id_user);
+    public synchronized int removeUser(Utilizador u) {
+        return interfaceDB.removeUser(u);
     }
 
-    public synchronized Utilizador getUser(int id_user) {
-        return interfaceDB.getUser(id_user);
+    public synchronized int updateUser(Utilizador u, String nome, String email, String password, String estado) {
+        return interfaceDB.updateUser(u, nome, email, password, estado);
     }
 
-    public synchronized int updateUser(int id_user, String pwd, String telefone) throws InvalidUtilizadorException {
-        return interfaceDB.updateUser(id_user,pwd,telefone);
+    public synchronized Utilizador getUser(int id) {
+        return interfaceDB.getUser(id);
     }
 
-    public synchronized Utilizador Login(String email, String pwd) {
-        return interfaceDB.Login(email, pwd);
+    public synchronized Utilizador loginUser(String email, String password) {
+        return interfaceDB.loginUser(email, password);
     }
 
-    public JSONObject ListaOfUsers(){
-        return interfaceDB.listaOfUsers();
+
+    //EBOOK
+    public synchronized int addEbook(EBook ebook) {
+        return interfaceDB.addEbook(ebook);
     }
 
-    //----EBook
-    public synchronized int addEBook(EBook eBook) {
-        return interfaceDB.saveEBook(eBook);
+    public synchronized int removeEbook(EBook ebook) {
+        return interfaceDB.removeEbook(ebook);
     }
 
-    public synchronized EBook getEBook(int idEBook) {
-        return interfaceDB.getEBook(idEBook);
+    public synchronized int updateEbook(EBook ebook, String autor, String formato, String titulo, String ISBN, String assinatura, Editora editora, String idioma, Float tamanhoFicheiro) {
+        return interfaceDB.updateEbook(ebook, autor, formato, titulo, ISBN, assinatura, editora, idioma, tamanhoFicheiro);
     }
 
-    public synchronized JSONObject ListarEBooks(){return interfaceDB.ListarEBooks();}
-
-    public synchronized int removeEBook(int idEBook) {
-        return interfaceDB.removeEBook(idEBook);
+    public synchronized EBook getEbook(int idEbook) {
+        return interfaceDB.getEbook(idEbook);
     }
 
-    //----Emprestimo
-
-    public synchronized int addEmprestimo(Emprestimo emprestimo) {
-        return interfaceDB.saveEmprestimo(emprestimo);
+    //Emprestimo
+    public synchronized int addEmprestimo(Emprestimo emp) {
+        return interfaceDB.addEmprestimo(emp);
     }
 
-    public synchronized Emprestimo getEmprestimo(int id_emp) {
-        return interfaceDB.getEmprestimo(id_emp);
+    public synchronized int removeEmprestimo(Emprestimo emp) {
+        return interfaceDB.removeEmprestimo(emp);
     }
 
-    public synchronized EBook getEBookFromEmprestimo(int id_emp) {
-        return interfaceDB.getEBookFromEmprestimo(id_emp);
+    public synchronized int updateEmprestimo(Emprestimo emp, LocalDate data_ini, LocalDate data_fim, int prolongacao, Utilizador user, ReplicaServidor replicaServidor, CopiaEBook copiaEBook, int assinatura) throws InvalidEmprestimoException, InvalidExtensaoEmprestimoException {
+        return interfaceDB.updateEmprestimo(emp, data_ini, data_fim, prolongacao, user, replicaServidor, copiaEBook, assinatura);
     }
 
-    public synchronized Utilizador getUtilizadorFromEmprestimo(int id_emp) {
-        return interfaceDB.getUtilizadorFromEmprestimo(id_emp);
+    public synchronized Emprestimo getEmprestimo(int idEmp) {
+        return interfaceDB.getEmprestimo(idEmp);
     }
 
-    public synchronized ReplicaServidor getReplicaFromEmprestimo(int id_emp) {
-        return interfaceDB.getReplicaFromEmprestimo(id_emp);
+    public synchronized EBook getEbookFromEmprestimo(int idEmp) {
+        return interfaceDB.getEbookFromEmprestimo(idEmp);
     }
 
-    public synchronized int getAssinaturaTR(int id_emp) {
-        return interfaceDB.getAssinaturaTR(id_emp);
+    public synchronized Utilizador getUtilizadorFromEmprestimo(int idEmp) {
+        return interfaceDB.getUtilizadorFromEmprestimo(idEmp);
     }
 
-    public synchronized int removeEmprestimo(int id_emp) {
-        return interfaceDB.removeEmprestimo(id_emp);
+    public synchronized ReplicaServidor getReplicaFromEmprestimo(int idEmp) {
+        return interfaceDB.getReplicaFromEmprestimo(idEmp);
     }
 
-    public synchronized JSONObject ListarEmprestimoByUser(int id_user) { return interfaceDB.ListarEmprestimoByUser(id_user); }
-
-
-    //-----Funcionario
-    public synchronized int addFuncionario(Funcionario f) {
-        return interfaceDB.saveFuncionario(f);
+    //Editora
+    public synchronized int addEditora(Editora edit) {
+        return interfaceDB.addEditora(edit);
     }
 
-    public synchronized int removeFuncionario(int id_func) {
-        return interfaceDB.removeFuncionario(id_func);
+    public synchronized int removeEditora(Editora edit) {
+        return interfaceDB.removeEditora(edit);
     }
 
-    public synchronized Funcionario getFuncionario(int id_func) {
-        return interfaceDB.getFuncionario(id_func);
+    public synchronized int updateEditora(Editora edit, String nomeEditora, String morada){
+        return interfaceDB.updateEditora(edit, nomeEditora, morada);
     }
 
-    public synchronized Funcionario LoginFuncionario(String email, String pwd) {
-        return interfaceDB.LoginFuncionario(email, pwd);
+    public synchronized Editora getEditora(int idEdit){
+        return interfaceDB.getEditora(idEdit);
     }
 
-    //-----Replica
-    public synchronized int addReplicaServidor(ReplicaServidor rp) {
-        return interfaceDB.saveReplica(rp);
+    //Funcionario
+    public synchronized int addFuncionario(Funcionario func) {
+        return interfaceDB.addFuncionario(func);
     }
 
-    public synchronized int removeReplicaServidor(int id_replica) {
-        return interfaceDB.removeReplica(id_replica);
+    public synchronized int removeFuncionario(Funcionario func) {
+        return interfaceDB.removeFuncionario(func);
     }
 
-    public synchronized ReplicaServidor getReplicaServidor(int id_replica) {
-        return interfaceDB.getReplica(id_replica);
+    public synchronized int updateFuncionario(Funcionario func, String emailFunc, String passFunc, String nomeFunc) {
+        return interfaceDB.updateFuncionario(func, emailFunc, passFunc, nomeFunc);
     }
 
-    public synchronized JSONObject getCopiaFromReplica(int id_replica){
-        return interfaceDB.getCopiaFromReplicas(id_replica);
+    public synchronized Funcionario getFuncionario(int idFunc) {
+        return interfaceDB.getFuncionario(idFunc);
     }
 
-    //-----Editora
-    public synchronized int addEditora(Editora editora){
-        return interfaceDB.addEditora(editora);
+    //Replica Servidor
+    public synchronized int addReplica(ReplicaServidor replica) {
+        return interfaceDB.addReplica(replica);
     }
 
-    public synchronized Editora getEditora(int idEditora){
-        return interfaceDB.getEditorabyId(idEditora);
+    public synchronized int removeReplica(ReplicaServidor replica) {
+        return interfaceDB.removeReplica(replica);
+    }
+
+    public synchronized int updateReplica(ReplicaServidor replica, String localizacao) throws InvalidReplicaException {
+        return interfaceDB.updateReplica(replica, localizacao);
+    }
+
+    public synchronized ReplicaServidor getReplica(int idReplica) {
+        return interfaceDB.getReplica(idReplica);
     }
 }

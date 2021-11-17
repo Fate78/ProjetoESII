@@ -49,7 +49,7 @@ public class Emprestimo {
 
     //Prolongar o empréstimo
     public void prolongarEmprestimo() throws InvalidExtensaoEmprestimoException {
-        if(prolongacao_emprestimo <= 0 || prolongacao_emprestimo > 2){
+        if(prolongacao_emprestimo < 0 || prolongacao_emprestimo >= 2){
             throw new InvalidExtensaoEmprestimoException("Prolongação de empréstimo inválida");
         }
         this.prolongacao_emprestimo++;

@@ -219,4 +219,26 @@ public class TesteEbook {
     void createEbookNull() {
         assertNull(ebook);
     }
+
+
+    //Assinaturas
+    @Test
+    void criarEbookAssinaturaNull() {
+        assertThrows(InvalidEbookException.class, () -> {
+            ebook = new EBook(idEbook, autor, formato, titulo, ISBN, null, editora, idioma, tamanhoFicheiro);
+        });
+    }
+
+    @Test
+    void criarEbookAssinaturaVazio() {
+        assertThrows(InvalidEbookException.class, () -> {
+            ebook = new EBook(idEbook, autor, formato, titulo, ISBN, "", editora, idioma, tamanhoFicheiro);
+        });
+    }
+
+    @Test
+    void criarEbookAssinaturaOk() throws InvalidEbookException {
+        ebook = new EBook(idEbook, autor, formato, titulo, ISBN, hash, editora, idioma, tamanhoFicheiro);
+        assertEquals("UmFogoLentoPaulaHawkins", ebook.getHash());
+    }
 }

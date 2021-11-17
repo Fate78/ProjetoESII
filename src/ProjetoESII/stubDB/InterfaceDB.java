@@ -1,43 +1,75 @@
 package ProjetoESII.stubDB;
 
 import ProjetoESII.*;
-import ProjetoESII.Exceptions.InvalidUtilizadorException;
+import ProjetoESII.Exceptions.InvalidEmprestimoException;
+import ProjetoESII.Exceptions.InvalidExtensaoEmprestimoException;
+import ProjetoESII.Exceptions.InvalidReplicaException;
+
+import java.time.LocalDate;
 
 public interface InterfaceDB {
-    int saveUser(Utilizador u);
-    int removeUser(int id_user);
-    Utilizador getUser(int id_user);
-    int updateUser(int id_user, String pwd, String telefone) throws InvalidUtilizadorException;
-    Utilizador Login(String email, String pwd);
-    JSONObject listaOfUsers();
 
-    int saveEBook(EBook eBook);
-    EBook getEBook(int idEBook);
-    JSONObject ListarEBooks();
-    int removeEBook(int idEBook);
+    // User
+    int addUser(Utilizador u);
+
+    int removeUser(Utilizador u);
+
+    int updateUser(Utilizador u, String nome, String email, String password, String estado);
+
+    Utilizador getUser(int id);
+
+    Utilizador loginUser(String email, String password);
+
+    // EBook
+    int addEbook(EBook ebook);
+
+    int removeEbook(EBook ebook);
+
+    int updateEbook(EBook ebook, String autor, String formato, String titulo, String ISBN, String assinatura, Editora editora, String idioma, Float tamanhoFicheiro);
+
+    EBook getEbook(int idEbook);
+
+    // Emprestimo
+    int addEmprestimo(Emprestimo emp);
+
+    int removeEmprestimo(Emprestimo emp);
+
+    int updateEmprestimo(Emprestimo emp, LocalDate data_ini, LocalDate data_fim, int prolongacao, Utilizador user, ReplicaServidor replicaServidor, CopiaEBook copiaEBook, int assinatura)  throws InvalidEmprestimoException, InvalidExtensaoEmprestimoException;
+
+    Emprestimo getEmprestimo(int idEmp);
+
+    EBook getEbookFromEmprestimo(int idEmp);
+
+    Utilizador getUtilizadorFromEmprestimo(int idEmp);
+
+    ReplicaServidor getReplicaFromEmprestimo(int idEmp);
 
 
-    int saveEmprestimo(Emprestimo emp);
-    Emprestimo getEmprestimo(int id_emp);
-    EBook getEBookFromEmprestimo(int id_emp);
-    Utilizador getUtilizadorFromEmprestimo(int id_emp);
-    ReplicaServidor getReplicaFromEmprestimo(int id_emp);
-    int getAssinaturaTR(int id_emp);
-    int removeEmprestimo(int id_emp);
-    JSONObject ListarEmprestimoByUser(int id_user);
+    // Editora
+    int addEditora(Editora edit);
 
+    int removeEditora(Editora edit);
 
+    int updateEditora(Editora edit, String nomeEditora, String morada);
 
-    int saveFuncionario(Funcionario f);
-    int removeFuncionario(int id_func);
-    Funcionario getFuncionario(int id_func);
-    Funcionario LoginFuncionario(String email, String pwd);
+    Editora getEditora(int idEdit);
 
-    int saveReplica(ReplicaServidor rp);
-    int removeReplica(int id_replica);
-    ReplicaServidor getReplica(int id_replica);
-    JSONObject getCopiaFromReplicas(int id_replica);
+    //Funcionario
+    int addFuncionario(Funcionario func);
 
-    int addEditora(Editora editora);
-    Editora getEditorabyId(int idEditora);
+    int removeFuncionario(Funcionario func);
+
+    int updateFuncionario(Funcionario func, String emailFunc, String passFunc, String nomeFunc) ;
+
+    Funcionario getFuncionario(int idFunc);
+
+    //Replica Servidor
+    int addReplica(ReplicaServidor replica);
+
+    int removeReplica(ReplicaServidor replica);
+
+    int updateReplica(ReplicaServidor replica, String localizacao) throws InvalidReplicaException;
+
+    ReplicaServidor getReplica(int idReplica);
+
 }
